@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './movieList.scss';
 
-import { SwiperSlide, Swiper } from 'swiper/swiper-react';
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { Link } from 'react-router-dom';
 
 import Button from '../button/Button';
+import MovieCard from '../movie-card/MovieCard'
 import tmdbApi, { category } from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
 
@@ -20,10 +21,10 @@ const MovieList = (props) => {
       if (props.type !== 'similar') {
         switch (props.category) {
           case category.movie:
-            response = await tmdbApi.getMoviesList(props.type, params);
+            response = await tmdbApi.getMoviesList(props.type, {params});
             break;
           default:
-            response = await tmdbApi.getTvList(props.type, params);
+            response = await tmdbApi.getTvList(props.type, {params});
         }
       } else {
         response = await tmdbApi.similar(props.category, props.id);
@@ -33,7 +34,24 @@ const MovieList = (props) => {
     getList();
   }, []);
 
-  return <div>MovieList</div>;
+  return (
+    <div className="movie-list">
+        <Swiper 
+          grabCursor={true}
+          spaceBetween={10}
+          slidesPerView={'auto'}
+        >
+          {
+            items.map((item, i) => (
+              <SwiperSlide key={i}>
+                <MovieCard item={item} category={props.category} />
+              </SwiperSlide>
+            ))
+          }
+        </Swiper>
+
+    </div>
+  );
 };
 
 MovieList.propTypes = {
