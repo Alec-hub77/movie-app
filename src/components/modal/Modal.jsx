@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './modal.scss';
 
-const Modal = () => {
+const Modal = (props) => {
   const [active, setActive] = React.useState(false);
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ export const ModalContent = props => {
     return (
         <div ref={contentRef} className="modal__content">
           {props.children}
-          <div className="model__content__close" onClick={closeModal}>
+          <div className="modal__content__close" onClick={closeModal}>
             <i className="bx bx-x"></i>
           </div>
         </div>
