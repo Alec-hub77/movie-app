@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import './movieList.scss';
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Link } from 'react-router-dom';
 
-import Button from '../button/Button';
 import MovieCard from '../movie-card/MovieCard'
 import tmdbApi, { category } from '../../api/tmdbApi';
-import apiConfig from '../../api/apiConfig';
+
 
 const MovieList = (props) => {
   const [items, setItems] = React.useState([]);
